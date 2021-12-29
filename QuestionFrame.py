@@ -68,12 +68,10 @@ class QFrame:
         if self.option.get() != -1:
             if self.option.get() == index_of_correct_ans:
                 self.point = 1
-                print("Correct Ans")
             else:
                 self.point = -0.25
-                print("Wrong Ans")
         else:
-            print("No attempt")
+            self.point = 0
 
 
 def run(Qdata, name, email):
@@ -154,8 +152,6 @@ def run(Qdata, name, email):
     prev = tk.Button(root, text="Previous Question", font=FONT, command=lambda: prev_Question())
     prev.place(relx=0.2, rely=0.85, anchor='sw')
 
-    # cal = tk.Button(root,text="Submit and Finish",font=FONT,command = show_points())
-    # cal.place()
     Questions[Current].show()
 
     def timer():

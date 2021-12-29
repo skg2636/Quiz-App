@@ -61,7 +61,6 @@ def start_login(email, password):
     if data:
         if data[3] == password:
             root.withdraw()
-            # wn = Selection_Window(data[1]+" "+data[2],email)
             name = data[1] + " " + data[2]
             print("Name-->", name)
             print("Email ----> ", email)

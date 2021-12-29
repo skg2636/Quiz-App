@@ -96,8 +96,6 @@ class Response_Window:
         self.seperator.pack(fill='x', expand=True, pady=5)
 
         for Q in self.Qdata:
-            print(Q)
-            print("-" * 80)
             Ques = Q.question
             corr_ans = Q.correct_ans
             incorrect_option = Q.incorrect_answers
@@ -129,7 +127,7 @@ def showResponses(Qdata, time_taken, total_score, score_obtained, name, email):
         res = Response_Window(Qdata, time_taken, total_score, score_obtained)
     except Exception as e:
         print(e)
-    exit(123)
+    exit()
 
 
 def updatedatabase(email, time_taken, total_score, score_obtained):

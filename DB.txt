@@ -1,0 +1,11 @@
+
+# command to create table for users
+
+create table Quiz_User(email varchar(100) primary key , f_name varchar(100),l_name varchar(100),
+password varchar(100), reg_time datetime);
+
+# command to create response table
+
+ create table quiz_responses(response_id int unsigned not null auto_increment, primary key
+ (response_id), email varchar(100), foreign key (email) references quiz_user(email),
+  time_taken varchar(100),total_score int, scored_obtained int);

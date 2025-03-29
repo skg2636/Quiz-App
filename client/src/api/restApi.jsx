@@ -1,6 +1,8 @@
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:5000";
+
 export const Signup = async (username, email, password) => {
   try {
-    const response = await fetch("api/auth/signup", {
+    const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +22,7 @@ export const Signup = async (username, email, password) => {
 
 export const Login = async (email, password) => {
   try {
-    const response = await fetch("api/auth/login", {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +43,7 @@ export const Login = async (email, password) => {
 export const FetchQuizQuestions = async (usertoken, topic, difficulty) => {
   try {
     const response = await fetch(
-      `api/quizzes/attempt?topic=${topic}&difficulty=${difficulty}`,
+      `${API_BASE_URL}/api/quizzes/attempt?topic=${topic}&difficulty=${difficulty}`,
       {
         method: "GET",
         headers: {
@@ -73,7 +75,7 @@ export const SubmitQuizAnswer = async (
       return { error: "No authentication token provided" };
     }
 
-    const response = await fetch("api/quizzes/attempt", {
+    const response = await fetch(`${API_BASE_URL}/api/quizzes/attempt`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +99,7 @@ export const SubmitQuizAnswer = async (
 
 export const GenerateQuizQuestion = async (usertoken, topic, difficulty) => {
   try {
-    const response = await fetch(`api/quizzes/create`, {
+    const response = await fetch(`${API_BASE_URL}/api/quizzes/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -128,7 +130,7 @@ export const ConfirmQuizQuestion = async (
   difficulty
 ) => {
   try {
-    const response = await fetch(`api/quizzes/confirm`, {
+    const response = await fetch(`${API_BASE_URL}/api/quizzes/confirm`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -156,7 +158,7 @@ export const ConfirmQuizQuestion = async (
 
 export const FetchPastAttempts = async (usertoken) => {
   try {
-    const response = await fetch(`api/quizzes//attempts`, {
+    const response = await fetch(`${API_BASE_URL}/api/quizzes/attempts`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -176,7 +178,7 @@ export const FetchPastAttempts = async (usertoken) => {
 
 export const FetchGlobalLeaderboard = async (usertoken) => {
   try {
-    const response = await fetch(`api/leaderboard/global`, {
+    const response = await fetch(`${API_BASE_URL}/api/leaderboard/global`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -196,7 +198,7 @@ export const FetchGlobalLeaderboard = async (usertoken) => {
 
 export const UpdateGlobalLeaderboard = async (usertoken) => {
   try {
-    const response = await fetch(`api/leaderboard/global/update`, {
+    const response = await fetch(`${API_BASE_URL}/api/leaderboard/global/update`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

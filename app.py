@@ -33,7 +33,9 @@ db.init_app(app)
 init_jwt(app)
 
 # Enable CORS
-CORS(app)
+allowed_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:5173")
+allowed_origins = allowed_origins.split(",")
+CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
 
 # Register blueprints
 app.register_blueprint(auth_blueprint, url_prefix='/api/auth')

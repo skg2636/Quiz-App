@@ -1,20 +1,37 @@
-# Quiz Application
+# AI-Powered Quiz App
 
-A dynamic quiz application built with Python and React, offering an interactive way to test knowledge through multiple-choice questions.
+A full-stack AI-driven quiz application where users can take quizzes, track scores, and compete on a global leaderboard. Admins can create quizzes using AI-generated questions.
 
-## Features
+## 🚀 Features
+- **User Authentication** (JWT-based login & signup)
+- **AI-Generated Quiz Questions** (Admins create quizzes)
+- **Quiz Attempt & Scoring** (Users take quizzes & get scores)
+- **Leaderboard & Past Attempts** (Track performance)
 
-- User-friendly graphical interface
-- Multiple choice questions support
-- Real-time score tracking
+## 🛠️ Tech Stack
+- **Frontend:** Vite + React (Deployed on Vercel)
+- **Backend:** Flask + PostgreSQL (Deployed on Render)
+- **AI:** Gemini API for question generation
 
-## Technologies Used
+## 🔧 Setup Instructions
 
-- Python 3.x
-- React + Vite
-- Flask (Web Framework)
-- Flask-JWT-Extended (Authentication)
-- SQLAlchemy (Database ORM)
-- PostgressSQL
+### Backend
+```bash
+pip install -r requirements.txt
+flask run
+```
 
-## Project Structure
+### Frontend
+```bash
+npm install
+npm run dev
+```
+
+## 🌍 Deployment
+
+- **Frontend**: Hosted on Vercel
+
+- **Backend**: Hosted on Render
+
+## Contribute
+Feel free to open an issue or pull request! 🚀

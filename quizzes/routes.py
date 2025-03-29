@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, session
+from flask import Blueprint, jsonify, request
 from middleware.auth_middleware import auth_required, get_current_user
 from utils.genai_service import generate_questions
 from quizzes.utils import store_quiz_to_db, generate_random_quiz_for_user, generate_score_for_quizz, fetch_past_attempts
@@ -19,7 +19,7 @@ def protected_quiz_route():
 def create_quiz():
     """Admin initiates quiz creation by providing topic and difficulty."""
     
-    current_user_role = session.get("role")
+    current_user_role = getattr(request, "user_role", None)
     if current_user_role != "admin":
         return jsonify({"error": "Unauthorized access"}), 403
 
@@ -42,7 +42,7 @@ def create_quiz():
 def get_all_quizzes():
     """Admin confirms the quiz questions and stores the quiz."""
     
-    current_user_role = session.get("role")
+    current_user_role = getattr(request, "user_role", None)
     if current_user_role != "admin":
         return jsonify({"error": "Unauthorized access"}), 403
 

@@ -42,16 +42,11 @@ def login():
         (User.email == email_or_username) 
     ).first()
 
-    session["user_id"] = user.id
-    session["username"] = user.username
-    session["email"] = user.email
-    session["role"] = user.role
-
     if not user or not check_password_hash(user.password_hash, password):
         return jsonify({"error": "Invalid credentials"}), 401
 
     # Generate JWT token
-    access_token = create_access_token(identity=str(user.id), expires_delta=timedelta(hours=1))
+    access_token = create_access_token(identity=str(user.id), additional_claims={"role" : user.role},expires_delta=timedelta(hours=1))
 
     return jsonify({"message": "Login successful",
         "token": access_token,

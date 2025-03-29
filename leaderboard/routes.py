@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, session
+from flask import Blueprint, jsonify, request
 from middleware.auth_middleware import auth_required, get_current_user
 from leaderboard.utils import update_global_leaderboard, fetch_global_leaderboard
 
@@ -9,7 +9,7 @@ leaderboard_blueprint = Blueprint('leaderboard', __name__, url_prefix='/api/lead
 def admin_fetch_global_leaderboard():
     """Admin fetches & recalculate the global leader board"""
 
-    current_user_role = session.get("role")
+    current_user_role = getattr(request, "user_role", None)
     if current_user_role != "admin":
         return jsonify({"error": "Unauthorized access"}), 403
     

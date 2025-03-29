@@ -7,9 +7,7 @@ from quizzes.routes import quiz_blueprint
 from leaderboard.routes import leaderboard_blueprint
 from auth.utils import init_jwt
 import os
-import threading
 import logging
-from datetime import datetime
 
 # Configure logging
 # Create logs directory if it doesn't exist

@@ -33,5 +33,9 @@ npm run dev
 
 - **Backend**: Hosted on Render
 
+## 🌍 Live Application
+- **Frontend:** [AI Quiz App](https://ai-quiz-app-gamma.vercel.app/)
+- **Backend API:** Hosted on Render
+
 ## Contribute
 Feel free to open an issue or pull request! 🚀

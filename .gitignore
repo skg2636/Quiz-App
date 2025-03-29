@@ -60,4 +60,4 @@ Thumbs.db
 logs/
 *.log
 app.log
-.venv
+.venv/*

@@ -97,8 +97,9 @@ export const SubmitQuizAnswer = async (
   }
 };
 
-export const GenerateQuizQuestion = async (usertoken, topic, difficulty) => {
+export const GenerateQuizQuestion = async (usertoken, topic, difficulty, customPrompt) => {
   try {
+    console.log(customPrompt);
     const response = await fetch(`${API_BASE_URL}/api/quizzes/create`, {
       method: "POST",
       headers: {
@@ -108,6 +109,7 @@ export const GenerateQuizQuestion = async (usertoken, topic, difficulty) => {
       body: JSON.stringify({
         topic,
         difficulty,
+        customPrompt
       }),
     });
 
@@ -215,3 +217,23 @@ export const UpdateGlobalLeaderboard = async (usertoken) => {
     throw new Error(error.message);
   }
 };
+
+export const QuizAutoGeneration = async(usertoken) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/quizzes/auto_generate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${usertoken}`,
+      },
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return { error: data.error || "Something went wrong" };
+    }
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

@@ -48,12 +48,13 @@ const AdminQuizCreate = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const location = useLocation();
-  const { topic, difficulty } = location.state || {};
+  const { topic, difficulty, customInfo } = location.state || {};
   const [quizSettings, setQuizSettings] = useState({
     topic: topic || "",
     difficulty: difficulty || "",
     positiveMarking: 1,
     negativeMarking: 0,
+    customPrompt: customInfo || "",
   });
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [currentQuestion, setCurrentQuestion] = useState({
@@ -114,7 +115,8 @@ const AdminQuizCreate = () => {
       const data = await GenerateQuizQuestion(
         userToken,
         quizSettings.topic,
-        quizSettings.difficulty
+        quizSettings.difficulty,
+        quizSettings.customPrompt
       );
       if (data.questions) {
         setQuestions(data.questions);

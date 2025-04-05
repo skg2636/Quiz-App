@@ -14,7 +14,7 @@ import {
   Stack,
   useTheme,
   useMediaQuery,
-  Switch,
+  TextField,
   Tooltip,
 } from "@mui/material";
 import { motion } from "framer-motion";
@@ -22,10 +22,7 @@ import Profile from "./Profile";
 import PastAttempts from "./PastAttempts";
 import GlobalScoreboard from "./GlobalScoreboard";
 import { useAuth } from "../context/AuthContext";
-import {
-  FetchPastAttempts,
-  FetchGlobalLeaderboard,
-} from "../api/restApi";
+import { FetchPastAttempts, FetchGlobalLeaderboard, QuizAutoGeneration } from "../api/restApi";
 
 // Styled Components
 const StyledContainer = styled(Container)(({ theme }) => ({
@@ -114,8 +111,16 @@ const Dashboard = () => {
 
   const handleGenerateQuiz = () => {
     if (adminTopic && adminDifficulty) {
+      var customInfo = document.getElementById("custom-info").value;
+      if (customInfo === "") {
+        customInfo = "No custom info provided";
+      }
       navigate("/generate-quiz", {
-        state: { topic: adminTopic, difficulty: adminDifficulty },
+        state: {
+          topic: adminTopic,
+          difficulty: adminDifficulty,
+          customInfo: customInfo,
+        },
       });
     } else {
       alert("Please select a topic and difficulty for quiz generation.");
@@ -150,12 +155,23 @@ const Dashboard = () => {
     }
   };
 
-
-
   const fetchData = async () => {
     await fetchPastAttempts();
     await fetchGlobalLeaderboard();
   };
+
+  const handleAutoGeneration = async () => {
+    try{
+      const data = await QuizAutoGeneration(usertoken);
+      if(data.success){
+        alert(data.success)
+      }else{
+        alert(data.error || "Something went wrong")
+      }
+    }catch(error){
+      console.error("Error generating quiz:", error);
+    }
+  }
 
   useEffect(() => {
     fetchData();
@@ -262,7 +278,13 @@ const Dashboard = () => {
                 <Typography variant="h6" gutterBottom>
                   Generate Quiz (Admin)
                 </Typography>
-                
+                <Tooltip title="Auto-generate quiz with all topic and difficulty">
+                  <Button variant="contained" color="secondary"
+                    onClick={handleAutoGeneration}
+                  >
+                    Auto Generate
+                  </Button>
+                </Tooltip>
               </Stack>
               <Box width="90%">
                 <FormControl fullWidth margin="normal">
@@ -271,6 +293,7 @@ const Dashboard = () => {
                     labelId="admin-topic-select-label"
                     id="admin-topic-select"
                     label="Topic"
+                    value={adminTopic}
                     onChange={(e) => setAdminTopic(e.target.value)}
                   >
                     <MenuItem value="general-knowledge">
@@ -300,12 +323,24 @@ const Dashboard = () => {
                     labelId="admin-difficulty-select-label"
                     id="admin-difficulty-select"
                     label="Difficulty"
+                    value={adminDifficulty}
                     onChange={(e) => setAdminDifficulty(e.target.value)}
                   >
                     <MenuItem value="easy">Easy</MenuItem>
                     <MenuItem value="medium">Medium</MenuItem>
                     <MenuItem value="hard">Hard</MenuItem>
                   </Select>
+                </FormControl>
+                <FormControl fullWidth margin="normal">
+                  <TextField
+                    id="custom-info"
+                    label="Custom Information(Optional)"
+                    multiline
+                    rows={4}
+                    placeholder="Enter any additional information here, like the standard, classes, syllabus, or any certain topics you want to include in the quiz."
+                    variant="outlined"
+                    fullWidth
+                  />
                 </FormControl>
 
                 <StyledButton variant="contained" onClick={handleGenerateQuiz}>

@@ -29,7 +29,7 @@ db.init_app(app)
 init_jwt(app)
 
 # Enable CORS
-allowed_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:5173")
+allowed_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:5174")
 allowed_origins = allowed_origins.split(",")
 CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
 

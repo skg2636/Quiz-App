@@ -147,5 +147,3 @@ def fetch_past_attempts(user_id,quiz_id=None):
         print("Error fetching past attempts: ", e)
         return None
     
-        
-
